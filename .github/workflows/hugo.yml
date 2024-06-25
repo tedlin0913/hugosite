@@ -60,11 +60,10 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
-        working-directory: ./docs
         uses: actions/upload-pages-artifact@v3
         with:
         # change path to docs
-          path: ./public
+          path: ./docs/public
 
   # Deployment job
   deploy:
