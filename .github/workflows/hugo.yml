@@ -49,6 +49,7 @@ jobs:
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build with Hugo
+        working-directory: ./docs
         env:
           # For maximum backward compatibility with Hugo modules
           HUGO_ENVIRONMENT: production
@@ -57,13 +58,13 @@ jobs:
         run: |
           hugo \
             --minify \
-            --configDir "./docs/hugo.toml"
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
+        working-directory: ./docs
         uses: actions/upload-pages-artifact@v3
         with:
         # change path to docs
-          path: ./docs/public
+          path: ./public
 
   # Deployment job
   deploy:
